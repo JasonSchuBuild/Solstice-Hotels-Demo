@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solstice Concierge</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="sun" aria-hidden="true"></div>Solstice Hotels <small>Concierge</small></div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>How can we help with your stay?</h1>
+      <p>Ask about your reservation, request a late checkout or extra amenities, or check a hotel policy.
+         Anything we can't handle here goes straight to our front desk team with the full details.</p>
+    </div>
+  </section>
+
+  <main class="guest-main">
+    <div class="wrap">
+      <div class="chat-card">
+        <div class="chat-head">
+          <div>
+            <div class="title">Solstice Concierge</div>
+            <div class="sub">AI assistant · Available 24/7</div>
+          </div>
+          <button class="btn small" id="newChat" type="button">New conversation</button>
+        </div>
+        <div class="messages" id="messages" aria-live="polite"></div>
+        <div class="chips" id="chips">
+          <button class="chip" type="button">What can you help with?</button>
+          <button class="chip" type="button">What time is checkout?</button>
+          <button class="chip" type="button">Can I bring my dog?</button>
+          <button class="chip" type="button">I'd like a late checkout</button>
+        </div>
+        <div class="composer">
+          <textarea id="input" rows="1" maxlength="1000" placeholder="Type your question..." aria-label="Message"></textarea>
+          <button class="btn primary" id="send" type="button">Send</button>
+        </div>
+      </div>
+      <p class="fineprint">For emergencies, call 911. To verify a booking, have your confirmation number and last name ready.
+         Never share card numbers in chat.</p>
+    </div>
+  </main>
+
+  <script src="/static/common.js"></script>
+  <script>
+    const PAGE = "guest";
+    Solstice.demo.init("Guest concierge", "guest");
+    const WELCOME = "Welcome to Solstice Hotels. I can help with your reservation, late checkout, room requests, loyalty benefits and hotel policies. What can I do for you?";
+    const LEAD_PROMPTS = [
+      [/reservation|booking|stay/i, "I'd like help with my reservation."],
+      [/service request|room request|request/i, "I'd like to make a service request."],
+      [/polic/i, "What are your hotel policies?"],
+      [/loyalty/i, "What loyalty benefits do I have?"],
+      [/propert|hotel info/i, "Can you tell me about your properties?"],
+    ];
+    let token = Solstice.getToken(PAGE);
+    let replied = false;   // has the agent answered anything in this session yet?
+
+    const box = Solstice.chat({
+      messagesEl: document.getElementById("messages"),
+      inputEl: document.getElementById("input"),
+      sendBtn: document.getElementById("send"),
+      getSessionToken: () => token,
+      // Bold lead-ins in the assistant's bullet lists become one-click questions.
+      leadPrompt: label => (LEAD_PROMPTS.find(([re]) => re.test(label)) || [])[1] || null,
+      onReply: () => { replied = true; document.getElementById("chips").classList.add("hidden"); },
+      // Session lost (timed out, or the server restarted). Keep the chat on screen, open a new
+      // session and let common.js resend the message. Only mention it if there was a conversation
+      // the assistant will no longer remember (including any verification).
+      onExpired: async () => {
+        try { await openSession(); } catch { return false; }
+        if (replied) box.add("agent", "Our connection reset, so I don't have our earlier messages. "
+          + "If you'd verified a booking, I'll need your confirmation number and last name again.");
+        replied = false;
+        return true;
+      },
+    });
+
+    async function openSession() {
+      const r = await Solstice.api("/api/sessions", { method: "POST", body: { view: "guest" } });
+      token = r.token;
+      Solstice.setToken(PAGE, token);
+    }
+
+    async function start() {
+      await openSession();
+      replied = false;
+      box.clear();
+      box.add("agent", Solstice.renderText(WELCOME));
+      document.getElementById("chips").classList.remove("hidden");
+    }
+
+    document.getElementById("chips").addEventListener("click", e => {
+      if (e.target.classList.contains("chip")) box.send(e.target.textContent);
+    });
+    document.getElementById("newChat").addEventListener("click", async () => {
+      if (token) Solstice.api("/api/sessions", { method: "DELETE", token }).catch(() => {});
+      await start();
+    });
+
+    // Always start fresh on page load: a conversation (and its verification) never survives a reload.
+    start().catch(() => box.add("agent", "We couldn't connect to the concierge. Please refresh the page.", "degraded"));
+  </script>
+</body>
+</html>

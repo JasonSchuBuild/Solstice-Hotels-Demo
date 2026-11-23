@@ -1,0 +1,22 @@
+{
+  "seed": 7,
+  "scale": 10,
+  "fault_rate": 0.06,
+  "demo_today": "2026-07-12",
+  "rows": {
+    "properties": 100,
+    "reservations": 253,
+    "inquiries": 100
+  },
+  "expected_issues": 34,
+  "faults": 27,
+  "scenarios": {
+    "within_rules": 32,
+    "over_block_limit": 12,
+    "over_discount": 12,
+    "blackout": 15,
+    "meeting_too_big": 11,
+    "not_enough_rooms": 5,
+    "needs_clarification": 8
+  }
+}

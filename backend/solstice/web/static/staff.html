@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solstice Staff Console</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><div class="sun" aria-hidden="true"></div>Solstice Hotels <small id="modeLabel">Staff console</small></div>
+    <div class="actions hidden" id="topActions">
+      <button class="btn ghost" id="switchMode" type="button">Switch mode</button>
+      <button class="btn ghost" id="signOut" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <!-- Sign in -->
+  <section class="center" id="loginView">
+    <form class="card login" id="loginForm">
+      <h2>Staff sign in</h2>
+      <p>Choose a workspace and enter the staff PIN.</p>
+      <div class="field">
+        <label>Workspace</label>
+        <div class="seg" id="viewPick">
+          <button type="button" data-view="front_desk" class="active"><strong>Front desk</strong><span>Guest requests, lookups, comps</span></button>
+          <button type="button" data-view="group_sales"><strong>Group sales</strong><span>Inquiries and proposals</span></button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="pin">Staff PIN</label>
+        <input id="pin" type="password" inputmode="numeric" autocomplete="off" required>
+      </div>
+      <div class="error" id="loginError" role="alert"></div>
+      <button class="btn primary" type="submit" style="width:100%">Sign in</button>
+      <div class="demo-note">Demo gate only. In production, staff sign in with company SSO (Microsoft Entra ID).</div>
+    </form>
+  </section>
+
+  <!-- Console -->
+  <main class="console hidden" id="consoleView">
+    <div class="chat-card">
+      <div class="chat-head">
+        <div>
+          <div class="title" id="chatTitle">Front desk assistant</div>
+          <div class="sub" id="chatSub"></div>
+        </div>
+        <div class="head-actions">
+          <button class="btn small" id="openTrace" type="button">Under the hood<span class="count hidden" id="traceCount"></span></button>
+          <button class="btn small" id="openTickets" type="button">Escalations<span class="count hidden" id="ticketCount"></span></button>
+          <button class="btn small" id="newChat" type="button">New conversation</button>
+        </div>
+      </div>
+      <div class="messages" id="messages" aria-live="polite"></div>
+      <div class="chips" id="chips"></div>
+      <div class="composer">
+        <textarea id="input" rows="1" maxlength="4000" placeholder="Ask the assistant..." aria-label="Message"></textarea>
+        <button class="btn primary" id="send" type="button">Send</button>
+      </div>
+    </div>
+
+    <div class="scrim hidden" id="scrim"></div>
+    <aside class="panel drawer" id="drawer" aria-label="Agent details">
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="trace" type="button">Under the hood</button>
+        <button class="tab" data-tab="tickets" type="button">Escalations</button>
+        <span class="spacer"></span>
+        <button class="close" id="closeDrawer" type="button" aria-label="Close panel">&times;</button>
+      </div>
+      <div class="panel-body" id="tab-trace">
+        <div class="empty" id="traceEmpty">Each answer shows the tools the agent called, what it sent, what came back, and how long it took.</div>
+      </div>
+      <div class="panel-body hidden" id="tab-tickets"></div>
+    </aside>
+  </main>
+
+  <script src="/static/common.js"></script>
+  <script>
+    const PAGE = "staff";
+    Solstice.demo.init("Staff view", "staff");
+    const VIEW_INFO = {
+      front_desk: {
+        label: "Front desk", title: "Front desk assistant",
+        welcome: "Front desk assistant ready. Look up a reservation, check comp authority, or handle a guest request.",
+        chips: ["What can you help with?", "Who's arriving soon?", "Who's in house at Chicago?", "Look up R55004", "Find guests named Smith", "Is a $40 F&B credit plus a $25 parking comp within my authority?", "Any data issues?"],
+      },
+      group_sales: {
+        label: "Group sales", title: "Group sales assistant",
+        welcome: "Group sales assistant ready. Pick an inquiry to work up, or ask what's in the queue.",
+        chips: ["What can you help with?", "List the open inquiries", "Work up INQ-2009", "What can we do for INQ-2003?", "INQ-2004"],
+      },
+    };
+    let token = Solstice.getToken(PAGE);
+    let view = "front_desk";
+    // The record the conversation is currently about (latest INQ-#### or R#####), so a click can act on it.
+    let lastId = null;
+    const ID_RE = { group_sales: /INQ-\d+/gi, front_desk: /R\d{5}/gi };
+    function trackId(text) {
+      const found = String(text || "").match(ID_RE[view]);
+      if (found) lastId = found[found.length - 1].toUpperCase();
+    }
+    // Needs a record? Act on the current one, or load a starter into the box for the user to finish.
+    const withId = (make, starter) => lastId ? make(lastId) : { text: starter, send: false };
+    const LEADS = {
+      group_sales: [
+        [/inquir|queue/i,          () => "List the open inquiries"],
+        [/rule|check|lead time/i,  () => withId(id => `Run the rule check on ${id}`, "Run the rule check on INQ-")],
+        [/alternativ/i,            () => withId(id => `Find alternatives for ${id}`, "Find alternatives for INQ-")],
+        [/proposal/i,              () => withId(id => `Draft a proposal for ${id}`, "Draft a proposal for INQ-")],
+        [/data|quality/i,          () => "Any data issues?"],
+      ],
+      front_desk: [
+        [/arriv|in.?house|focus|list|who/i, () => "Who's arriving soon?"],
+        [/look ?up|reservation|booking/i,    () => withId(id => `Look up ${id}`, "Look up R")],
+        [/search|name/i,                     () => ({ text: "Find guests named ", send: false })],
+        [/comp|authority/i,                  () => withId(id => `What comp can I give on ${id} within my authority?`, "What comp can I give on R")],
+        [/data|quality/i,                    () => "Any data issues?"],
+        [/late|request|service|behalf|guest/i, () => withId(id => `Request a late checkout for ${id}`, "Request a late checkout for R")],
+      ],
+    };
+
+    const $ = id => document.getElementById(id);
+    Solstice.relaxPin($("pin"));
+
+    const box = Solstice.chat({
+      messagesEl: $("messages"), inputEl: $("input"), sendBtn: $("send"),
+      getSessionToken: () => token,
+      rowPrompt: id => (view === "group_sales" ? `Work up ${id}` : `Look up ${id}`),
+      leadPrompt: label => { const hit = (LEADS[view] || []).find(([re]) => re.test(label)); return hit ? hit[1]() : null; },
+      onReply: (r, q) => { trackId(q); trackId(r.text); addTrace(r, q); if (r.steps.some(s => s.tool === "escalate_to_staff") || r.degraded) loadTickets(); },
+      onExpired: () => signOut("Your session expired. Please sign in again."),
+    });
+
+    // ----- sign in -----
+    $("viewPick").addEventListener("click", e => {
+      const b = e.target.closest("button[data-view]");
+      if (!b) return;
+      view = b.dataset.view;
+      [...$("viewPick").children].forEach(x => x.classList.toggle("active", x === b));
+    });
+
+    $("loginForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      $("loginError").textContent = "";
+      try {
+        const r = await Solstice.api("/api/sessions", { method: "POST", body: { view, pin: $("pin").value } });
+        token = r.token; Solstice.setToken(PAGE, token);
+        $("pin").value = "";
+        openConsole(r);
+      } catch (err) {
+        $("loginError").textContent = err.message;
+      }
+    });
+
+    function openConsole(r) {
+      const info = VIEW_INFO[view];
+      $("loginView").classList.add("hidden");
+      $("consoleView").classList.remove("hidden");
+      $("topActions").classList.remove("hidden");
+      $("modeLabel").textContent = info.label;
+      $("chatTitle").textContent = info.title;
+      $("chatSub").textContent = `Model: ${r.model}`;
+      box.clear();
+      box.add("agent", Solstice.renderText(info.welcome));
+      $("chips").innerHTML = info.chips.map(c => `<button class="chip" type="button">${Solstice.escapeHtml(c)}</button>`).join("");
+      lastId = null;
+      unseen = 0; $("traceCount").classList.add("hidden"); closeDrawer();
+      $("tab-trace").innerHTML = "";
+      $("tab-trace").appendChild(Solstice.el("div", { class: "empty", id: "traceEmpty" },
+        "Each answer shows the tools the agent called, what it sent, what came back, and how long it took."));
+      loadTickets();
+      $("input").focus();
+    }
+
+    async function newConversation() {
+      // Same workspace, fresh agent memory. The server swaps the session; the PIN isn't asked again.
+      try {
+        const r = await Solstice.api("/api/sessions/restart", { method: "POST", token });
+        token = r.token; Solstice.setToken(PAGE, token);
+        openConsole(r);
+      } catch (err) {
+        if (err.status === 401) signOut("Your session expired. Please sign in again.");
+        else box.add("agent", Solstice.escapeHtml(err.message), "degraded");
+      }
+    }
+
+    function signOut(message) {
+      if (token) Solstice.api("/api/sessions", { method: "DELETE", token }).catch(() => {});
+      token = null; Solstice.setToken(PAGE, null);
+      $("consoleView").classList.add("hidden");
+      $("topActions").classList.add("hidden");
+      $("loginView").classList.remove("hidden");
+      $("modeLabel").textContent = "Staff console";
+      $("loginError").textContent = message || "";
+      $("pin").focus();
+    }
+
+    $("newChat").addEventListener("click", newConversation);
+    $("switchMode").addEventListener("click", () => signOut(""));
+    $("signOut").addEventListener("click", () => signOut(""));
+    $("chips").addEventListener("click", e => { if (e.target.classList.contains("chip")) box.send(e.target.textContent); });
+
+    // ----- tabs -----
+    let unseen = 0;   // agent turns added to "Under the hood" while the panel was closed
+    function showTab(name) {
+      document.querySelectorAll(".tab").forEach(x => x.classList.toggle("active", x.dataset.tab === name));
+      $("tab-trace").classList.toggle("hidden", name !== "trace");
+      $("tab-tickets").classList.toggle("hidden", name !== "tickets");
+      if (name === "tickets") loadTickets();
+      if (name === "trace") { unseen = 0; $("traceCount").classList.add("hidden"); }
+    }
+    function openDrawer(name) {
+      showTab(name);
+      $("drawer").classList.add("open"); $("scrim").classList.remove("hidden");
+    }
+    function closeDrawer() { $("drawer").classList.remove("open"); $("scrim").classList.add("hidden"); $("input").focus(); }
+    const drawerOpen = () => $("drawer").classList.contains("open");
+    document.querySelector(".tabs").addEventListener("click", e => {
+      const t = e.target.closest(".tab");
+      if (t) showTab(t.dataset.tab);
+    });
+    $("openTrace").addEventListener("click", () => openDrawer("trace"));
+    $("openTickets").addEventListener("click", () => openDrawer("tickets"));
+    $("closeDrawer").addEventListener("click", closeDrawer);
+    $("scrim").addEventListener("click", closeDrawer);
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && drawerOpen()) closeDrawer(); });
+
+    // ----- under the hood -----
+    function addTrace(r, question) {
+      const empty = $("traceEmpty"); if (empty) empty.remove();
+      const latency = r.latency_s == null ? "n/a" : `${r.latency_s}s`;
+      const target = r.within_target === false ? ' <span class="pill warn">over target</span>' : "";
+      const tokens = r.tokens ? `${r.tokens.in} in / ${r.tokens.out} out` : "";
+      const turn = Solstice.el("div", { class: "turn" });
+      turn.innerHTML = `<div class="turn-head"><span class="q">${Solstice.escapeHtml(question)}</span>
+        <span>${latency}${target} · ${tokens}${r.degraded ? ' <span class="pill fail">model unavailable</span>' : ""}</span></div>`;
+      if (!r.steps.length) {
+        turn.appendChild(Solstice.el("div", { class: "step" }, '<span class="pill info">NO TOOLS</span> Answered from the system prompt and policy.'));
+      }
+      for (const s of r.steps) {
+        const d = Solstice.el("details", { class: "step" });
+        d.innerHTML = `<summary><span class="pill ${s.ok ? "ok" : "fail"}">${s.ok ? "OK" : "ERROR"}</span>
+          <span class="mono">${Solstice.escapeHtml(s.tool)}</span><span style="color:var(--muted)">${s.ms} ms</span></summary>
+          <div><strong>Input</strong><pre>${Solstice.escapeHtml(JSON.stringify(s.input, null, 2))}</pre>
+          <strong>Output</strong><pre>${Solstice.escapeHtml(JSON.stringify(s.output, null, 2))}</pre></div>`;
+        turn.appendChild(d);
+      }
+      $("tab-trace").prepend(turn);
+      if (!drawerOpen() || $("tab-trace").classList.contains("hidden")) {
+        unseen++; $("traceCount").textContent = unseen; $("traceCount").classList.remove("hidden");
+      }
+    }
+
+    // ----- escalations -----
+    async function loadTickets() {
+      try {
+        const list = await Solstice.api("/api/staff/tickets", { token });
+        const body = $("tab-tickets");
+        $("ticketCount").textContent = list.length; $("ticketCount").classList.toggle("hidden", !list.length);
+        if (!list.length) { body.innerHTML = '<div class="empty">No escalations yet. When the agent hands a conversation to staff, it appears here with the full context.</div>'; return; }
+        body.innerHTML = list.map(t => `
+          <div class="ticket">
+            <div class="row"><strong class="mono">${Solstice.escapeHtml(t.ticket_id)}</strong>
+              <span>${!t.guest_verified && (t.source || "").endsWith("/guest")
+                ? '<span class="pill info" title="The guest did not pass verify_guest. Name, room or reservation details in the summary are what the guest said, not confirmed records.">UNVERIFIED GUEST</span> '
+                : ""}<span class="pill ${t.priority === "URGENT" ? "fail" : "warn"}">${Solstice.escapeHtml(t.priority)}</span></span></div>
+            <div class="route">${Solstice.escapeHtml(t.category)} → ${Solstice.escapeHtml(t.route_to)}${t.property_code ? " · " + Solstice.escapeHtml(t.property_code) : ""}</div>
+            <p style="margin:6px 0">${Solstice.escapeHtml(t.summary)}</p>
+            <div class="route"><strong>Next step:</strong> ${Solstice.escapeHtml(t.recommended_next_step)}</div>
+            <details style="margin-top:6px"><summary class="route">Transcript (${(t.transcript || []).length} messages, PII masked)</summary>
+              ${(t.transcript || []).map(m => `<div class="route"><strong>${Solstice.escapeHtml(m.role)}:</strong> ${Solstice.escapeHtml(m.text)}</div>`).join("")}
+            </details>
+          </div>`).join("");
+      } catch (e) { if (e.status === 401) signOut("Your session expired. Please sign in again."); }
+    }
+
+    // A staff session never resumes after a reload: sign in again.
+    Solstice.setToken(PAGE, null); token = null;
+    $("pin").focus();
+  </script>
+</body>
+</html>

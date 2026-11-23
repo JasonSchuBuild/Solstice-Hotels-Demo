@@ -1,0 +1,87 @@
+# Solstice Agent — runtime settings
+# Change behavior here, not in code. Every value below is read by backend/solstice/config.py.
+
+model:
+  # Default: lowest-cost current Claude model. Swap to claude-sonnet-5-5 or claude-opus-5-5 for comparison.
+  default: claude-haiku-5-5
+  # Optional per-agent override (leave blank to use default).
+  concierge:
+  group_sales:
+  # Longest reply in tokens. Group sales reports (offer, flags, follow-ups, alternatives, client email)
+  # can run past 2,000 (evals 2026-11-18: INQ-2003 hit 2,048). Raised from 3,072 to 8,192 on 2026-11-19
+  # for headroom. It's a ceiling, not a target: cost follows what the model actually writes, and guest
+  # replies stay short anyway.
+  max_tokens: 8192
+  # Per model call. The SDK default is 10 minutes with 2 retries, which leaves a guest staring at
+  # "typing…" long before the "assistant unavailable" handoff kicks in. Keep these short.
+  request_timeout_s: 30
+  max_retries: 1
+  # No temperature: current Claude models reject sampling params. Determinism comes from
+  # the rules engine (pricing, approvals, date math), not from the model.
+
+agent:
+  # Hard cap on tool-call rounds per user turn (stops runaway loops).
+  max_tool_rounds: 8
+  # Only the last N user messages (and the replies/tool calls after them) are sent to the model.
+  # Keeps long chats from getting more expensive every turn. Verification still holds.
+  max_history_turns: 12
+  # Whole-turn time budget (all model calls and tools for one user message). Past it, the agent stops and hands
+  # the conversation to staff with a ticket, so the page always gets an answer. Without it, 8 rounds x 30 s x 2
+  # attempts could leave someone waiting for minutes. Keep these under the browser's 150 s chat timeout (common.js)
+  # minus a cold start. Why: docs/LATENCY.md.
+  turn_deadline_s: 45
+  group_sales_turn_deadline_s: 90
+
+# Abuse and cost guardrails for the web app. All counters are per app instance, in memory.
+limits:
+  # Total model tokens (in + out) per UTC day across all chats. When reached, guest chats
+  # get a polite "limit reached" reply; staff chats keep working. ~2M Haiku tokens is well under $1.
+  daily_token_budget: 2000000
+  # Per client address: messages allowed in a rolling window.
+  messages_per_window: 20
+  window_minutes: 10
+  # Per client address: new chats (any page) per hour.
+  # Raised from 20 for demo/testing; drop back down before exposing this publicly.
+  new_chats_per_hour: 400
+  # Per chat: messages before the user must start a new conversation.
+  max_messages_per_chat: 30
+  # Longest message accepted, in characters.
+  max_message_chars_guest: 1000
+  max_message_chars_staff: 4000
+
+# The sample data is set in mid-2026. "Today" for the demo is pinned so date math
+# (cancellation windows, service-recovery windows, lead times) gives stable answers.
+# Set to null to use the real current date.
+demo_today: "2026-07-12"
+
+access:
+  # Demo gate for staff modes (front desk, group sales) in the terminal app. NOT real auth:
+  # it keeps a guest at a shared demo screen out of staff tools. Production uses SSO.
+  # Hardening plan: docs/ACCESS_CONTROL.md
+  # Override without editing this file: set SOLSTICE_STAFF_PIN in .env.
+  staff_pin: "1234"
+  # Admin console (settings, health, activity). Read-only; no LLM calls. Override: SOLSTICE_ADMIN_PIN.
+  admin_pin: "4321"
+  # Master switch for demo open access. true = an admin may turn on "blank PIN sign-in" from Admin -> Access
+  # (off until they do; a wrong PIN still fails). false = the toggle is refused and a blank PIN never works.
+  # While it is on, anyone with the site URL gets staff and admin access, so turn it off after a demo.
+  # Set this to false for any deployment that should never offer it. Code: backend/solstice/open_access.py.
+  allow_open_access: true
+  # Failed guest verifications allowed per chat session before verification locks
+  # and the agent must hand off to staff (stops confirmation-number guessing).
+  max_failed_verifications: 3
+
+latency:
+  # p95 for a complete reply. Live chat (guests, front desk) vs. back-office group sales work.
+  # Why these numbers: docs/LATENCY.md.
+  target_p95_seconds: 6
+  group_sales_target_p95_seconds: 20
+
+paths:
+  properties_csv: data/raw/properties.csv
+  guests_csv: data/raw/guest_profiles.csv
+  inquiries_csv: data/raw/group_inquiries.csv
+  policy_doc: data/policies/front_desk_policy.md
+  group_rules: config/group_rules.yaml
+  prompts_dir: config/prompts
+  runtime_dir: data/runtime

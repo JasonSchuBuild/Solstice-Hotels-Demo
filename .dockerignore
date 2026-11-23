@@ -1,0 +1,10 @@
+# Allow-list: send only what the app needs to the image build.
+# Everything else (.env, _private/, .claude/, docs, tests, .venv) stays out.
+*
+!backend/requirements.txt
+!backend/solstice/**
+!config/**
+!data/raw/**
+!data/policies/**
+**/__pycache__
+**/*.pyc

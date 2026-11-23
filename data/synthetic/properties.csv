@@ -1,0 +1,101 @@
+property_code,property_name,city,state,market_type,total_rooms,standard_king_rooms,standard_double_rooms,deluxe_king_rooms,suite_rooms,accessible_rooms,base_rate_standard,base_rate_deluxe,base_rate_suite,meeting_space_sqft,max_meeting_capacity,group_block_auto_approve_max_rooms,max_discount_auto_approve_pct,blackout_dates,general_manager,notes
+SYN-001,Solstice Cincinnati Riverfront,Cincinnati,OH,Urban,160,64,45,29,14,8,199,229,319,3000,100,30,15,2026-09-18 to 2026-09-25; 2027-02-04 to 2027-02-07,Samuel Quintana,Popular for weddings on summer weekends.
+SYN-002,Solstice San Antonio Riverfront,San Antonio,TX,Resort,190,76,53,34,17,10,149,219,299,8500,280,35,15,none scheduled,Nadia Dubois,Ballroom divides into three breakout rooms.
+SYN-003,Solstice Houston Airport,Houston,TX,Resort,190,76,53,34,17,10,144,214,334,4000,130,35,10,none scheduled,Hannah Rasmussen,Recently renovated meeting level.
+SYN-004,Solstice Portland University,Portland,OR,Urban,300,120,84,54,27,15,229,274,384,7500,250,30,15,none scheduled,Leila Castillo,Free airport shuttle every 30 minutes.
+SYN-005,Solstice Cincinnati Lakeside,Cincinnati,OH,Urban,260,104,73,47,23,13,229,294,384,7500,250,35,12,none scheduled,Owen Fofana,
+SYN-006,Solstice Omaha Convention Center,Omaha,NE,Urban,270,108,76,49,24,13,189,254,354,6500,210,30,15,2026-09-07 to 2026-09-10,Chloe Nakamura,Steady business-travel demand on weekdays.
+SYN-007,Solstice Dallas University,Dallas,TX,Urban,140,56,39,25,13,7,259,329,479,11000,360,15,8,2027-01-08 to 2027-01-13,Leila Lindqvist,Popular for weddings on summer weekends.
+SYN-008,Solstice Milwaukee Uptown,Milwaukee,WI,Urban,270,108,76,49,24,13,249,284,424,2500,80,40,12,2027-01-06 to 2027-01-14,Nadia Vasquez,Ballroom divides into three breakout rooms.
+SYN-009,Solstice Boston Midtown,Boston,MA,Urban,260,104,73,47,23,13,194,234,344,11500,380,30,15,none scheduled,Jordan Garber,Recently renovated meeting level.
+SYN-010,Solstice Memphis Medical District,Memphis,TN,Urban,140,56,39,25,13,7,164,229,369,8000,260,25,15,2026-10-10 to 2026-10-19,Omar Bello,Free airport shuttle every 30 minutes.
+SYN-011,Solstice Kansas City Uptown,Kansas City,MO,Resort,160,64,45,29,14,8,149,189,289,4000,130,25,12,none scheduled,Liam Alvarez,
+SYN-012,Solstice Atlanta Medical District,Atlanta,GA,Resort,160,64,45,29,14,8,204,274,354,7500,250,30,15,2027-01-11 to 2027-01-15,Leila Bello,Steady business-travel demand on weekdays.
+SYN-013,Solstice Raleigh Uptown,Raleigh,NC,Urban,240,96,67,43,22,12,199,234,324,9500,310,25,8,2026-09-01 to 2026-09-05,Priya Garber,Popular for weddings on summer weekends.
+SYN-014,Solstice Portland Downtown,Portland,OR,Urban,120,48,34,22,11,5,229,269,379,10500,350,35,15,none scheduled,Diego Thornton,Ballroom divides into three breakout rooms.
+SYN-015,Solstice San Diego Uptown,San Diego,CA,Urban,320,128,90,58,29,15,179,234,384,11500,380,25,8,2026-10-02 to 2026-10-05,Caleb Petrov,Recently renovated meeting level.
+SYN-016,Solstice San Diego Riverfront,San Diego,CA,Resort,150,60,42,27,14,7,254,309,439,6000,200,20,8,2027-07-21 to 2027-07-25,Chloe Alvarez,Free airport shuttle every 30 minutes.
+SYN-017,Solstice Omaha Medical District,Omaha,NE,Resort,210,84,59,38,19,10,239,274,434,6000,200,25,10,2026-10-25 to 2026-10-30,Fatima Haddad,
+SYN-018,Solstice Tucson Midtown,Tucson,AZ,Urban,190,76,53,34,17,10,199,244,364,5000,160,20,12,2027-01-30 to 2027-02-07,Avery Alvarez,Steady business-travel demand on weekdays.
+SYN-019,Solstice Orlando Old Town,Orlando,FL,Urban,230,92,64,41,21,12,194,229,379,5500,180,35,8,none scheduled,Ravi Garber,Popular for weddings on summer weekends.
+SYN-020,Solstice New Orleans Convention Center,New Orleans,LA,Urban,320,128,90,58,29,15,194,TBD,359,3500,110,15,15,2027-07-31 to 2027-08-09; 2027-09-05 to 2027-09-09,Ravi Chowdhury,Ballroom divides into three breakout rooms.
+SYN-021,Solstice Miami Convention Center,Miami,FL,Resort,240,96,67,43,22,12,254,289,439,4500,150,40,10,none scheduled,Hannah Alvarez,Recently renovated meeting level.
+SYN-022,Solstice New Orleans Lakeside,New Orleans,LA,Resort,230,92,64,41,21,12,159,229,319,10500,350,35,10,none scheduled,Avery Zielinski,Free airport shuttle every 30 minutes.
+SYN-023,Solstice Savannah University,Savannah,GA,Urban,180,72,50,32,16,10,169,199,319,6000,200,35,15,none scheduled,Chloe Haddad,
+SYN-024,Solstice Las Vegas Medical District,Las Vegas,NV,Urban,130,52,36,23,12,7,254,309,469,9000,300,20,8,2027-04-22 to 2027-04-28,Zara Delacroix,Steady business-travel demand on weekdays.
+SYN-025,Solstice Orlando Lakeside,Orlando,FL,Urban,170,68,48,31,15,8,234,264,424,4000,130,15,12,none scheduled,Ravi Thornton,Popular for weddings on summer weekends.
+SYN-026,Solstice Omaha Airport,Omaha,NE,Resort,280,112,78,50,25,15,224,289,439,3500,110,35,8,2026-08-30 to 2026-09-03; 2026-12-06 to 2026-12-11,Jordan Yilmaz,Ballroom divides into three breakout rooms.
+SYN-027,Solstice San Antonio Medical District,San Antonio,TX,Urban,260,104,73,47,23,13,189,259,419,11500,380,20,12,2027-07-21 to 2027-07-26,Grace Quintana,Recently renovated meeting level.
+SYN-028,Solstice Tucson Harbor,Tucson,AZ,Urban,260,104,73,47,23,13,159,219,329,3500,110,40,12,2027-01-09 to 2027-01-12,Isaac Haddad,Free airport shuttle every 30 minutes.
+SYN-029,Solstice Salt Lake City Riverfront,Salt Lake City,UT,Resort,160,64,45,29,14,8,249,304,-394,4000,130,30,15,none scheduled,Hannah Okonkwo,
+SYN-030,Solstice Sacramento Airport,Sacramento,CA,Resort,190,76,53,34,17,10,164,224,354,10000,330,15,12,2027-03-04 to 2027-03-08,Diego Kowalski,Steady business-travel demand on weekdays.
+SYN-031,Solstice Miami Airport,Miami,FL,Urban,260,104,73,47,23,13,249,279,369,8000,260,15,12,2027-06-16 to 2027-06-21,Chloe Castillo,Popular for weddings on summer weekends.
+SYN-032,Solstice Milwaukee Midtown,Milwaukee,WI,Urban,130,52,36,23,12,7,259,299,399,6000,200,35,15,2027-03-05 to 2027-03-14,Samuel Vasquez,Ballroom divides into three breakout rooms.
+SYN-033,Solstice Cincinnati Airport,Cincinnati,OH,Urban,140,56,39,25,13,7,179,209,299,4500,150,35,10,2026-09-07 to 2026-09-12,Avery Ueda,Recently renovated meeting level.
+SYN-034,Solstice San Antonio Midtown,San Antonio,TX,Resort,200,80,56,36,18,10,154,219,319,2000,60,15,10,2027-05-11 to 2027-05-17,Samuel Delacroix,Free airport shuttle every 30 minutes.
+SYN-035,Solstice Salt Lake City Midtown,Salt Lake City,UT,Resort,170,68,48,31,15,8,179,209,319,4500,150,25,15,none scheduled,Noah Ueda,
+SYN-036,Solstice Louisville Riverfront,Louisville,KY,Resort,170,68,48,31,15,8,179,234,384,2000,60,20,15,2026-08-08 to 2026-08-11; 2026-08-19 to 2026-08-27,Chloe Rasmussen,Steady business-travel demand on weekdays.
+SYN-037,Solstice Portland Old Town,Portland,OR,Urban,320,128,90,58,29,15,204,269,369,10500,350,30,12,2027-02-18 to 2027-02-23; 2027-04-17 to 2027-04-25,Sofia Haddad,Popular for weddings on summer weekends.
+SYN-038,Solstice Houston Airport,Houston,TX,Resort,168,64,45,29,14,8,139,174,314,12000,400,35,12,2026-12-09 to 2026-12-15,Kwame Brennan,Ballroom divides into three breakout rooms.
+SYN-039,Solstice St. Louis Midtown,St. Louis,MO,Urban,210,84,59,38,19,10,144,209,339,4500,150,35,12,none scheduled,Grace Alvarez,Recently renovated meeting level.
+SYN-040,Solstice St. Louis Airport,St. Louis,MO,Urban,130,52,36,23,12,7,184,229,349,7500,250,35,10,none scheduled,Amara Mbeki,Free airport shuttle every 30 minutes.
+SYN-041,Solstice St. Louis Harbor,St. Louis,MO,Resort,280,112,78,50,25,15,259,289,369,3000,100,30,8,none scheduled,Priya Eriksen,
+SYN-042,Solstice Indianapolis Waterfront,Indianapolis,IN,Resort,210,84,59,38,19,10,239,284,424,3000,100,25,15,2027-04-28 to 2027-05-07,Fatima Eriksen,Steady business-travel demand on weekdays.
+SYN-043,Solstice San Diego Medical District,San Diego,CA,Urban,210,84,59,38,19,10,254,294,454,2500,80,35,8,2027-04-20 to 2027-04-28; 2027-08-02 to 2027-08-08,Marcus Whitfield,Popular for weddings on summer weekends.
+SYN-044,Solstice Kansas City Medical District,Kansas City,MO,Urban,140,56,39,25,13,7,139,169,249,4000,130,40,10,2026-09-23 to 2026-09-29,Zara Okonkwo,Ballroom divides into three breakout rooms.
+SYN-045,Solstice Memphis Medical District,Memphis,TN,Urban,200,80,56,36,18,10,139,204,354,3000,100,25,8,2027-04-15 to 2027-04-22,Priya Vasquez,Recently renovated meeting level.
+SYN-046,Solstice Minneapolis Airport,Minneapolis,MN,Urban,190,76,53,34,17,10,254,299,419,5500,180,15,10,2027-03-24 to 2027-03-30,Caleb Mbeki,Free airport shuttle every 30 minutes.
+SYN-047,Solstice San Antonio Convention Center,San Antonio,TX,Urban,310,124,87,56,28,15,159,214,364,6000,200,15,15,2027-07-21 to 2027-07-26,Ethan Sato,
+SYN-048,Solstice Milwaukee Uptown,Milwaukee,WI,Urban,150,60,42,27,14,7,249,294,444,9500,310,15,10,none scheduled,Chloe Jaramillo,Steady business-travel demand on weekdays.
+SYN-049,Solstice Indianapolis Riverfront,Indianapolis,IN,Urban,140,56,39,25,13,7,214,244,334,6500,210,35,8,2027-04-17 to 2027-04-23,Mei Mbeki,Popular for weddings on summer weekends.
+SYN-050,Solstice San Diego Airport,San Diego,CA,Resort,280,112,78,50,25,15,179,234,364,4000,130,20,15,2027-06-20 to 2027-06-27,Mei Chowdhury,Ballroom divides into three breakout rooms.
+SYN-051,Solstice Memphis Harbor,Memphis,TN,Urban,240,96,67,43,22,12,139,179,319,2000,60,25,8,2027-03-19 to 2027-03-25; 2027-07-15 to 2027-07-20,Marcus Eriksen,Recently renovated meeting level.
+SYN-052,Solstice Pittsburgh Lakeside,Pittsburgh,PA,Urban,120,48,34,22,11,5,189,244,364,8000,260,25,12,none scheduled,Samuel Garber,Free airport shuttle every 30 minutes.
+SYN-053,Solstice San Antonio Downtown,San Antonio,TX,Resort,240,96,67,43,22,12,199,234,354,7500,250,40,10,2026-12-19 to 2026-12-28; 2027-08-22 to 2027-08-25,Mei Dubois,
+SYN-054,Solstice St. Louis Harbor,St. Louis,MO,Urban,200,80,56,36,18,10,204,274,414,7000,230,35,10,none scheduled,Diego Zielinski,Steady business-travel demand on weekdays.
+SYN-055,Solstice Seattle Uptown,Seattle,WA,Urban,130,52,36,23,12,7,254,314,474,9000,300,20,10,2026-10-10 to 2026-10-18,Caleb Jaramillo,Popular for weddings on summer weekends.
+SYN-056,Solstice New Orleans Midtown,New Orleans,LA,Urban,250,100,70,45,22,13,189,239,349,6500,,25,15,none scheduled,Marcus Ueda,Ballroom divides into three breakout rooms.
+SYN-057,Solstice Raleigh Uptown,Raleigh,NC,Resort,150,60,42,27,14,7,164,204,314,3000,100,30,12,none scheduled,Ingrid Zielinski,Recently renovated meeting level.
+SYN-058,Solstice Orlando Medical District,Orlando,FL,Urban,250,100,70,45,22,13,159,229,359,5000,160,20,12,none scheduled,Kwame Kowalski,Free airport shuttle every 30 minutes.
+SYN-059,Solstice Minneapolis Midtown,Minneapolis,MN,Urban,300,120,84,54,27,15,169,199,279,8500,280,30,12,2027-08-17 to 2027-08-24,Sofia Mbeki,
+SYN-060,Solstice Baltimore Riverfront,Baltimore,MD,Urban,160,64,45,29,14,8,244,314,454,10000,330,40,15,2026-11-19 to 2026-11-22,Mei Chowdhury,Steady business-travel demand on weekdays.
+SYN-061,Solstice Savannah Uptown,Savannah,GA,Urban,210,84,59,38,19,10,139,179,269,2500,80,30,15,2027-08-27 to 2027-09-05,Ravi Sato,Popular for weddings on summer weekends.
+SYN-062,Solstice Orlando Airport,Orlando,FL,Resort,190,76,53,34,17,10,264,299,449,5500,180,15,8,none scheduled,Chloe Vasquez,Ballroom divides into three breakout rooms.
+SYN-063,Solstice Atlanta Waterfront,Atlanta,GA,Urban,160,64,45,29,14,8,174,204,294,12000,400,15,8,2026-10-05 to 2026-10-13,Mei Quintana,Recently renovated meeting level.
+SYN-064,Solstice Indianapolis Downtown,Indianapolis,IN,Urban,280,112,78,50,25,15,229,274,434,8000,260,25,15,none scheduled,Owen Thornton,Free airport shuttle every 30 minutes.
+SYN-065,Solstice Milwaukee Lakeside,Milwaukee,WI,Resort,220,88,62,40,20,10,239,284,404,9500,310,15,8,2027-05-08 to 2027-05-12,Avery Nakamura,
+SYN-066,Solstice Tucson Old Town,Tucson,AZ,Urban,270,108,76,49,24,13,244,304,454,3000,100,15,12,none scheduled,Isaac Nakamura,Steady business-travel demand on weekdays.
+SYN-067,Solstice Charleston Medical District,Charleston,SC,Urban,230,92,64,41,21,12,244,304,414,5000,160,30,10,none scheduled,Noah Xu,Popular for weddings on summer weekends.
+SYN-068,Solstice Indianapolis Airport,Indianapolis,IN,Resort,180,72,50,32,16,10,174,239,389,5500,180,35,10,none scheduled,Ingrid Jaramillo,Ballroom divides into three breakout rooms.
+SYN-069,Solstice Kansas City Riverfront,Kansas City,MO,Urban,270,108,76,49,24,13,204,234,334,11500,380,30,8,none scheduled,Elena Brennan,Recently renovated meeting level.
+SYN-070,Solstice Houston Convention Center,Houston,TX,Resort,170,68,48,31,15,8,199,264,424,7000,230,40,15,2026-09-10 to 2026-09-14,Amara Garber,Free airport shuttle every 30 minutes.
+SYN-071,Solstice Dallas Airport,Dallas,TX,Urban,210,84,59,38,19,10,244,304,444,7500,250,15,10,2026-10-26 to 2026-10-29; 2027-03-15 to 2027-03-18,Priya Iverson,
+SYN-072,Solstice Richmond Riverfront,Richmond,VA,Urban,230,92,64,41,21,12,259,309,469,8500,280,30,10,none scheduled,Leila Petrov,Steady business-travel demand on weekdays.
+SYN-073,Solstice Cincinnati Harbor,Cincinnati,OH,Urban,230,92,64,41,21,12,254,319,459,2000,60,15,15,2026-12-05 to 2026-12-14,Yuki Yilmaz,Popular for weddings on summer weekends.
+SYN-074,Solstice San Antonio Midtown,San Antonio,TX,Resort,130,52,36,23,12,7,179,224,354,3000,100,25,12,2027-01-21 to 2027-01-26; 2027-02-02 to 2027-02-07,Ethan Brennan,Ballroom divides into three breakout rooms.
+SYN-075,Solstice Atlanta Midtown,Atlanta,GA,Urban,310,124,87,56,28,15,264,299,449,2000,60,20,15,2026-09-24 to 2026-10-02; 2027-04-01 to 2027-04-07,Fatima Mbeki,Recently renovated meeting level.
+SYN-076,Solstice Phoenix Old Town,Phoenix,AZ,Resort,120,48,34,22,11,5,264,314,404,4000,130,35,10,2027-01-15 to 2027-01-24,Amara Okonkwo,Free airport shuttle every 30 minutes.
+SYN-077,Solstice Raleigh Convention Center,Raleigh,NC,Urban,170,68,48,31,15,8,174,234,324,3000,100,15,12,2027-04-04 to 2027-04-11,Tomas Kowalski,
+SYN-078,Solstice Seattle University,Seattle,WA,Resort,180,72,50,32,16,10,154,214,324,9500,310,40,8,2026-10-28 to 2026-11-01; 2027-03-17 to 2027-03-21,Omar Okonkwo,Steady business-travel demand on weekdays.
+SYN-079,Solstice Detroit Uptown,Detroit,MI,Urban,210,84,59,38,19,10,179,229,329,7500,250,n/a,10,none scheduled,Mei Garber,Popular for weddings on summer weekends.
+SYN-080,Solstice San Diego Medical District,San Diego,CA,Resort,210,84,59,38,19,10,229,274,384,7000,230,40,8,none scheduled,Mei Haddad,Ballroom divides into three breakout rooms.
+SYN-081,Solstice Miami Riverfront,Miami,FL,Urban,130,52,36,23,12,7,154,184,264,9500,310,20,10,Labor Day week,Ingrid Jaramillo,Recently renovated meeting level.
+SYN-082,Solstice San Antonio Airport,San Antonio,TX,Resort,230,92,64,41,21,12,219,259,389,9000,300,20,8,2027-09-01 to 2027-09-10,Isaac Alvarez,Free airport shuttle every 30 minutes.
+SYN-083,Solstice Baltimore Downtown,Baltimore,MD,Urban,220,88,62,40,20,10,159,189,329,5000,160,40,12,2026-08-20 to 2026-08-28; 2027-06-03 to 2027-06-11,Samuel Garber,
+SYN-084,Solstice Phoenix Uptown,Phoenix,AZ,Urban,310,124,87,56,28,15,184,219,359,5000,160,15,15,none scheduled,Ravi Rasmussen,Steady business-travel demand on weekdays.
+SYN-085,Solstice San Diego Harbor,San Diego,CA,Urban,320,128,90,58,29,15,224,259,379,12000,400,30,8,none scheduled,Leila Iverson,Popular for weddings on summer weekends.
+SYN-086,Solstice Indianapolis Old Town,Indianapolis,IN,Resort,300,120,84,54,27,15,194,254,364,8500,280,30,15,none scheduled,Fatima Zielinski,Ballroom divides into three breakout rooms.
+SYN-087,Solstice Albuquerque University,Albuquerque,NM,Urban,120,48,34,22,11,5,204,244,394,8500,280,20,10,none scheduled,Priya Mbeki,Recently renovated meeting level.
+SYN-088,Solstice Atlanta Lakeside,Atlanta,GA,Resort,130,52,36,23,12,7,224,264,364,12000,400,20,12,2026-09-15 to 2026-09-22; 2027-02-20 to 2027-02-27,Samuel Lindqvist,Free airport shuttle every 30 minutes.
+SYN-089,Solstice Detroit Riverfront,Detroit,MI,Urban,170,68,48,31,15,8,219,259,359,3000,100,15,15,none scheduled,Ravi Yilmaz,
+SYN-090,Solstice Cincinnati Riverfront,Cincinnati,OH,Resort,130,52,36,23,12,7,234,294,434,3000,100,35,10,2027-06-14 to 2027-06-23; 2027-07-19 to 2027-07-23,Yuki Zielinski,Steady business-travel demand on weekdays.
+SYN-091,Solstice New Orleans Airport,New Orleans,LA,Urban,170,68,48,31,15,8,229,274,384,2500,80,40,10,2027-04-23 to 2027-04-27,Elena Lindqvist,Popular for weddings on summer weekends.
+SYN-092,Solstice Dallas Medical District,Dallas,TX,Resort,290,116,81,52,26,15,259,289,409,7000,230,40,15,none scheduled,Ethan Okonkwo,Ballroom divides into three breakout rooms.
+SYN-093,Solstice Indianapolis Downtown,Indianapolis,IN,Urban,300,120,84,54,27,15,174,234,384,8000,260,30,10,2027-03-17 to 2027-03-24,Grace Fofana,Recently renovated meeting level.
+SYN-094,Solstice Orlando Old Town,Orlando,FL,Urban,310,124,87,56,28,15,259,324,474,4500,150,35,8,2026-09-24 to 2026-09-27; 2027-02-21 to 2027-02-25,Diego Nakamura,Free airport shuttle every 30 minutes.
+SYN-095,Solstice Dallas Medical District,Dallas,TX,Urban,320,128,90,58,29,15,159,194,294,7000,230,15,8,2027-04-19 to 2027-04-22,Jordan Yilmaz,
+SYN-096,Solstice Salt Lake City Airport,Salt Lake City,UT,Urban,180,72,50,32,16,10,159,224,344,6500,210,20,12,2026-10-24 to 2026-11-02; 2027-07-18 to 2027-07-26,Samuel Haddad,Steady business-travel demand on weekdays.
+SYN-097,Solstice Milwaukee Riverfront,Milwaukee,WI,Urban,260,104,73,47,23,13,159,209,339,10000,330,15,10,2026-11-15 to 2026-11-22; 2027-04-03 to 2027-04-08,Ethan Quintana,Popular for weddings on summer weekends.
+SYN-098,Solstice Phoenix Waterfront,Phoenix,AZ,Urban,240,96,67,43,22,12,164,214,364,7000,230,35,8,2026-10-26 to 2026-10-29; 2026-12-14 to 2026-12-23,Chloe Brennan,Ballroom divides into three breakout rooms.
+SYN-099,Solstice Minneapolis Convention Center,Minneapolis,MN,Urban,290,116,81,52,26,15,239,299,429,7500,250,15,15,none scheduled,Diego Sato,Recently renovated meeting level.
+SYN-100,Solstice Kansas City Waterfront,Kansas City,MO,Urban,170,68,48,31,15,8,234,264,344,6500,210,40,8,2026-12-08 to 2026-12-16; 2027-01-06 to 2027-01-15,Nadia Delacroix,Free airport shuttle every 30 minutes.

@@ -1,0 +1,35 @@
+dataset,record_id,field,kind,source,original_value,seeded_value
+properties,SYN-029,base_rate_suite,negative_rate,fault,394,-394
+properties,SYN-020,base_rate_deluxe,non_numeric_rate,fault,229,TBD
+properties,SYN-038,total_rooms,room_total_mismatch,fault,160,168
+properties,SYN-079,group_block_auto_approve_max_rooms,threshold_missing,fault,20,n/a
+properties,SYN-081,blackout_dates,blackout_unparseable,fault,2026-11-27 to 2026-12-02; 2027-03-18 to 2027-03-21,Labor Day week
+properties,SYN-056,max_meeting_capacity,threshold_missing,fault,210,
+reservations,R90062,check_out_date,invalid_stay_dates,fault,2026-08-18,2026-08-16
+reservations,R90212,total_nights,nights_mismatch,fault,6,9
+reservations,R90215,property_code,unknown_property,fault,SYN-052,SYN-999
+reservations,R90001,nightly_rate,bad_nightly_rate,fault,206,-206
+reservations,R90040,reservation_status,unknown_status,fault,Confirmed,Pending??
+reservations,R90156,room_type,unknown_room_type,fault,Standard King,King
+reservations,R90208,reservation_id,duplicate_reservation_id,fault,R90208,R90208
+reservations,G90061,guest_id,guest_id_conflict,fault,zara.bello.61@example.com,other.zara.bello.61@example.com
+reservations,R90117,reservation_status,unknown_status,fault,Confirmed,Tentative
+reservations,R90122,nightly_rate,bad_nightly_rate,fault,169,-169
+reservations,R90144,total_nights,nights_mismatch,fault,5,6
+reservations,R90141,reservation_status,unknown_status,fault,Confirmed,Pending??
+reservations,R90183,reservation_id,duplicate_reservation_id,fault,R90183,R90183
+reservations,R90099,property_code,unknown_property,fault,SYN-073,SYN-999
+reservations,R90036,property_code,unknown_property,fault,SYN-043,SYN-999
+inquiries,INQ-9005,arrival_date,dates_missing,scenario,,
+inquiries,INQ-9015,arrival_date,dates_missing,scenario,,
+inquiries,INQ-9026,rooms_requested,rooms_not_exact,scenario,33,around 33
+inquiries,INQ-9037,arrival_date,dates_missing,scenario,,
+inquiries,INQ-9048,rooms_requested,rooms_not_exact,scenario,10,around 10
+inquiries,INQ-9059,arrival_date,dates_missing,scenario,,
+inquiries,INQ-9060,rooms_requested,rooms_not_exact,scenario,11,around 11
+inquiries,INQ-9035,preferred_property_code,unknown_property,fault,SYN-045,SYN-999
+inquiries,INQ-9064,nights,nights_mismatch,fault,3,5
+inquiries,INQ-9068,arrival_date,arrival_before_received,fault,2026-10-18,2026-06-19
+inquiries,INQ-9038,contact_phone,no_phone,fault,366-555-0113,
+inquiries,INQ-9087,nights,nights_mismatch,fault,3,5
+inquiries,INQ-9031,nights,nights_mismatch,fault,4,6

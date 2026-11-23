@@ -1,0 +1,53 @@
+# Group booking rules
+#
+# The numeric per-property thresholds (auto-approve room count, discount ceiling,
+# blackout dates) come straight from data/raw/properties.csv.
+#
+# This file captures the rules that only exist as free text in the properties
+# "notes" column, turned into structured rules the engine can check. Each rule
+# cites the note it came from so a reviewer can trace it.
+
+global:
+  # Any proposal that trips one of these is flagged for Sales/GM review, never auto-approved.
+  require_human_if_discount_over_ceiling: true
+  require_human_if_rooms_over_auto_approve: true
+  blackout_is_hard_stop: true
+
+seasonal_discount_caps:
+  - property: SOL-DEN
+    cap_pct: 8
+    months: [12, 1, 2]
+    nights_of_week: [Thu, Fri, Sat, Sun]
+    source_note: "Ski-season weekends (Dec-Feb, Thu-Sun) run at reduced group discount ceiling of 8%."
+  - property: SOL-SAC
+    cap_pct: 8
+    months: [1, 2, 3, 4, 5]
+    nights_of_week: [Mon, Tue, Wed, Thu, Fri]
+    source_note: "State-legislature session weeks (Jan-May, weekdays) run at reduced discount ceiling of 8%."
+
+property_rules:
+  - property: SOL-CHI
+    type: min_lead_time_days
+    applies_if_rooms_over: 25
+    days: 14
+    source_note: "Group requests over 25 rooms need 2+ weeks lead time."
+  - property: SOL-PVD
+    type: route_elsewhere
+    applies_if_rooms_over: 15
+    message: "Blocks over 15 rooms should be routed to the Boston-area sister property (not in our property directory — Sales must hand off)."
+    source_note: "Blocks over 15 rooms should be routed to Boston-area sister property instead."
+  - property: SOL-CMH
+    type: required_followup
+    applies_if_event_type_contains: ["youth"]
+    message: "Insurance certificate must be on file for youth groups before confirming."
+    source_note: "Verify insurance certificate for youth groups."
+  - property: SOL-NSH
+    type: advisory
+    applies_if_weekend_nights: true
+    message: "Weekend group blocks compete with high leisure demand; weekday blocks preferred."
+    source_note: "Very high leisure/bachelorette demand on weekends; weekday group blocks preferred."
+  - property: SOL-PHX
+    type: advisory
+    applies_if_months: [6, 7, 8]
+    message: "Off-peak window (Jun-Aug): rates typically ~20% lower — strong value for large blocks. Quoted rates use the published base rate; Sales may apply the seasonal rate."
+    source_note: "Rate drops ~20% June-Aug (off-peak); best value window for large blocks."

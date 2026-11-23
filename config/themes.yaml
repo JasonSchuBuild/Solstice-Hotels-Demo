@@ -1,0 +1,20 @@
+# Website themes. The admin console picks one; the choice is saved by backend/solstice/themes.py
+# (a file locally, Azure Blob Storage when deployed) and applies to every page.
+# The look of each theme lives in backend/solstice/web/static/style.css under [data-theme="<id>"].
+# To add a theme: add an entry here and a matching block in style.css. Nothing else.
+
+default: solstice
+
+themes:
+  - id: solstice
+    label: Solstice
+    description: Deep navy with sunrise amber. The original look.
+    swatch: ["#14213d", "#f2a541", "#f6f4ef"]
+  - id: shoreline
+    label: Shoreline
+    description: Beach resort. Warm sand, ocean teal and coral.
+    swatch: ["#0e6b7a", "#ff7a59", "#fbf5e9"]
+  - id: metropolis
+    label: Metropolis
+    description: City hotel. Charcoal and slate with a brass accent.
+    swatch: ["#1c2128", "#c9a24b", "#eef0f3"]
